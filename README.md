@@ -1,5 +1,5 @@
 ### First app using AI/ML HTML/CSS/FLASK
 ##  Python flask backend and HTML / CSS frontend
 ```
-int a = 20
+int b = 20
 ```
