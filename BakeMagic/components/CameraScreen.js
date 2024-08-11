@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Text, View, Button, Image, Alert, Linking } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 import styles from './styles';
 
 const CameraScreen = () => {
@@ -67,7 +68,39 @@ const CameraScreen = () => {
     }
   };
 
+  const uploadPhoto = async () => {
+    if (!capturedPhoto) return;
+
+    const formData = new FormData();
+    formData.append('file', {
+      uri: capturedPhoto,
+      name: 'photo.jpg', // You can change this to match the correct file name or type
+      type: 'image/jpeg', // Adjust the MIME type accordingly
+    });
+
+    try {
+      const response = await axios.post(
+        'http://192.168.1.7:44444/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+      console.log('Upload successful:', response.data);
+      Alert.alert(
+        'Upload Successful',
+        'Your photo has been uploaded successfully!',
+      );
+    } catch (error) {
+      console.error('Upload failed:', error);
+      Alert.alert('Upload Failed', 'There was an issue uploading your photo.');
+    }
+  };
+
   const confirmPhoto = () => {
+    uploadPhoto();
     setShowPreview(false);
   };
 
