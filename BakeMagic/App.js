@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text, View, Button, Image } from 'react-native';
+import { Text, View, Button, Image, Alert, Linking } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 
 const App = () => {
@@ -18,6 +18,15 @@ const App = () => {
       setCameraPermission(permission === 'authorized');
     } else {
       setCameraPermission(false);
+      Alert.alert(
+        'Camera Permission',
+        'Camera access is required to take photos. Please enable it in the app settings.',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Open Settings', onPress: () => Linking.openSettings() },
+        ],
+        { cancelable: false },
+      );
     }
   };
 
