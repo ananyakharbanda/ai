@@ -1,11 +1,21 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
+  // HomeScreen styles
+  homeContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000', // Changed to black to help see if camera is rendering
+    backgroundColor: '#fff',
+  },
+  icon: {
+    alignSelf: 'center',
+  },
+
+  // CameraScreen styles
+  cameraContainer: {
+    flex: 1,
+    backgroundColor: '#000',
   },
   camera: {
     flex: 1,
@@ -24,7 +34,7 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center', // Center horizontally
     margin: 20,
   },
 });

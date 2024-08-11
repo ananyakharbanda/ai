@@ -5,7 +5,7 @@ import styles from './styles';
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.homeContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
         <Icon name="camera" size={100} color="#000" style={styles.icon} />
       </TouchableOpacity>

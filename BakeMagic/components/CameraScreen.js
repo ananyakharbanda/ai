@@ -77,7 +77,7 @@ const CameraScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.cameraContainer}>
       {isFocused && cameraPermission && (
         <Camera
           style={styles.camera}
