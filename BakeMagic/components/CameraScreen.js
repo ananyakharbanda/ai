@@ -81,6 +81,7 @@ const CameraScreen = () => {
     try {
       const response = await axios.post(
         'http://192.168.1.7:44444/upload',
+        //'http://172.20.10.5:44444/upload',
         formData,
         {
           headers: {

@@ -7,6 +7,7 @@ from azure.ai.vision.imageanalysis import ImageAnalysisClient
 from azure.ai.vision.imageanalysis.models import VisualFeatures
 from azure.core.credentials import AzureKeyCredential
 from azure.core.exceptions import HttpResponseError
+from openai import AzureOpenAI
 
 
 # Initialize Flask app
@@ -21,11 +22,28 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 AZURE_ENDPOINT = os.getenv('AZURE_ENDPOINT')  # Replace with your environment variable name
 AZURE_API_KEY = os.getenv('AZURE_API_KEY')    # Replace with your environment variable name
 
+OPENAI_AZURE_ENDPOINT = os.getenv('OPENAI_AZURE_ENDPOINT')  # Replace with your environment variable name
+OPENAI_AZURE_API_KEY = os.getenv('OPENAI_AZURE_API_KEY')    # Replace with your environment variable name
+
 if not AZURE_ENDPOINT or not AZURE_API_KEY:
+    raise ValueError("Azure endpoint and API key must be set in environment variables.")
+
+if not OPENAI_AZURE_ENDPOINT or not OPENAI_AZURE_API_KEY:
     raise ValueError("Azure endpoint and API key must be set in environment variables.")
 
 # Initialize the Image Analysis client
 image_analysis_client = ImageAnalysisClient(endpoint=AZURE_ENDPOINT, credential=AzureKeyCredential(AZURE_API_KEY))
+
+#openai_api_version = "2024-05-13"  # Example API version
+openai_api_version = '2024-02-01'
+
+# Initialize the AzureOpenAI client
+openai_client = AzureOpenAI(
+    azure_endpoint=OPENAI_AZURE_ENDPOINT, 
+    api_key=OPENAI_AZURE_API_KEY,  
+    api_version=openai_api_version
+)
+
 
 # Ensure the upload directory exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -82,11 +100,27 @@ def upload_file():
                     print(f"Message: {e.error.message}")
 
 
+            deployment_name = "bakeopenai"
             # Identify the main object in the image
             if analysis_result.objects:
                 for detected_object in analysis_result.objects.list:
                     # Print object name
                     print(" {} (confidence: {:.2f}%)".format(detected_object.tags[0].name, detected_object.tags[0].confidence * 100))
+                
+                    prompt = "Can you give me recepie for {}".format(detected_object.tags[0].name)
+                    response = openai_client.completions.create(
+                        model=deployment_name,
+                        prompt=prompt,
+                        temperature=1,
+                        max_tokens=1293,
+                        top_p=0.5,
+                        frequency_penalty=0,
+                        presence_penalty=0,
+                        best_of=1,
+                        stop=None
+                    )
+
+                    print(prompt + response.choices[0].text)
                 # Log the JSON response
                 #app.logger.info(f"Returning JSON response: {response_data}")
                 #return jsonify(response_data), 200
@@ -109,4 +143,5 @@ def upload_file():
 # Main entry point
 if __name__ == '__main__':
     app.run(host='192.168.1.7', port=44444, debug=True)
+    #app.run(host='172.20.10.5', port=44444, debug=True)
 
