@@ -1,17 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text, View, Button, Image, Alert, Linking } from 'react-native';
+import {
+  Text,
+  View,
+  Button,
+  Image,
+  Alert,
+  Linking,
+  ActivityIndicator,
+} from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './styles';
 
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
   const device = useCameraDevice('back');
   const camera = useRef(null);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
   const checkCameraPermission = async () => {
     const status = await Camera.getCameraPermissionStatus();
@@ -71,17 +81,18 @@ const CameraScreen = () => {
   const uploadPhoto = async () => {
     if (!capturedPhoto) return;
 
+    setLoading(true); // Start loading indicator
+
     const formData = new FormData();
     formData.append('file', {
       uri: capturedPhoto,
-      name: 'photo.jpg', // You can change this to match the correct file name or type
-      type: 'image/jpeg', // Adjust the MIME type accordingly
+      name: 'photo.jpg',
+      type: 'image/jpeg',
     });
 
     try {
       const response = await axios.post(
         'http://192.168.1.7:44444/upload',
-        //'http://172.20.10.5:44444/upload',
         formData,
         {
           headers: {
@@ -89,12 +100,11 @@ const CameraScreen = () => {
           },
         },
       );
-      console.log('Upload successful:', response.data);
-      Alert.alert(
-        'Upload Successful',
-        'Your photo has been uploaded successfully!',
-      );
+
+      setLoading(false); // Stop loading indicator
+      navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
+      setLoading(false); // Stop loading indicator on error
       console.error('Upload failed:', error);
       Alert.alert('Upload Failed', 'There was an issue uploading your photo.');
     }
@@ -121,7 +131,12 @@ const CameraScreen = () => {
           photo={true}
         />
       )}
-      {showPreview && capturedPhoto ? (
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.loadingText}>Processing... Please wait</Text>
+        </View>
+      ) : showPreview && capturedPhoto ? (
         <View style={styles.previewContainer}>
           <Image source={{ uri: capturedPhoto }} style={styles.previewImage} />
           <View style={styles.buttonContainer}>

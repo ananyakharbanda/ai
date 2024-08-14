@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './components/HomeScreen';
 import CameraScreen from './components/CameraScreen';
+import RecipeScreen from './components/RecipeScreen'; // Import the new screen
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,11 @@ const App = () => {
           name="Camera"
           component={CameraScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Recipe"
+          component={RecipeScreen} // Add the new screen to the stack
+          options={{ headerShown: true, title: 'Recipe Details' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

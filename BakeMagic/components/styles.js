@@ -34,7 +34,19 @@ export default StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center', // Center horizontally
+    justifyContent: 'center',
     margin: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: '#fff',
+    fontFamily: 'Inter',
   },
 });

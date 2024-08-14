@@ -5,6 +5,7 @@ import base64
 import requests
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
+import json
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -79,7 +80,8 @@ def upload_file():
                         "content": [
                             {
                                 "type": "text",
-                                "text": "Find the main food item in this image and give the recipe of that, ignore everything else in the image"
+                                "text": '''Find the main food item in this image and give the recipe of that, ignore everything else in the image, return the recepie in json format with name, ingredients and steps
+                                if you can't find a food item in picture then return a field in json called status as false otherwise make status as true '''
                             },
                             {
                                 "type": "image_url",
@@ -90,7 +92,7 @@ def upload_file():
                         ]
                     }
                 ],
-                "max_tokens": 300
+                "max_tokens": 1000
             }
 
             # Make the API request
@@ -99,18 +101,23 @@ def upload_file():
             # Process the response
             if response.status_code == 200:
                 result = response.json()
-                app.logger.info(f"Returning JSON response: {result}")
-                return jsonify(result), 200
+                content = result['choices'][0]['message']['content']
+                if content.startswith("```json"):
+                    content = content.strip("```json").strip("```").strip()
+                response_data = {"status": True, "message": content}
+                app.logger.info(f"Returning JSON response: {json.dumps(response_data)}")
+                return jsonify({"status": True, "message": content}), 200
             else:
-                app.logger.error(f"OpenAI API error: {response.text}")
-                return f"OpenAI API error: {response.text}", response.status_code
+                error_message = response.text
+                return jsonify({"status": False, "message": f"OpenAI API error: {error_message}"}), response.status_code
 
-        return "Invalid file type", 400
+        return jsonify({"status": False, "message": "Invalid file type"}), 400
 
     except Exception as e:
         # Log the error for debugging purposes
         app.logger.error(f"An error occurred: {str(e)}")
-        return "An internal error occurred. Please try again later.", 500
+        return jsonify({"status": False, "message": f"An internal error occurred: {str(e)}"}), 500
+
 
 # Main entry point
 if __name__ == '__main__':
