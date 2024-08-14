@@ -3,26 +3,25 @@ import { View, Text, ScrollView, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const RecipeScreen = ({ route }) => {
+  const navigation = useNavigation(); // Correctly include the useNavigation hook
   const { apiResponse } = route.params;
-  const navigation = useNavigation();
-
   const { status, message } = apiResponse;
-  const parsedMessage = JSON.parse(message);
+  const parsedMessage = JSON.parse(message); // Parse the message as JSON
   const innerStatus = parsedMessage.status;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {status && innerStatus ? (
         <View>
-          <Text style={styles.title}>{parsedMessage.recipe.name}</Text>
+          <Text style={styles.title}>{parsedMessage.name}</Text>
           <Text style={styles.subtitle}>Ingredients:</Text>
-          {parsedMessage.recipe.ingredients.map((ingredient, index) => (
+          {parsedMessage.ingredients.map((ingredient, index) => (
             <Text key={index} style={styles.text}>
               - {ingredient}
             </Text>
           ))}
           <Text style={styles.subtitle}>Steps:</Text>
-          {parsedMessage.recipe.steps.map((step, index) => (
+          {parsedMessage.steps.map((step, index) => (
             <Text key={index} style={styles.text}>
               {index + 1}. {step}
             </Text>

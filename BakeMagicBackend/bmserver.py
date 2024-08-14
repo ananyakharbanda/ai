@@ -80,8 +80,17 @@ def upload_file():
                         "content": [
                             {
                                 "type": "text",
-                                "text": '''Find the main food item in this image and give the recipe of that, ignore everything else in the image, return the recepie in json format with name, ingredients and steps
-                                if you can't find a food item in picture then return a field in json called status as false otherwise make status as true '''
+                                "text": '''Find the main food item in this image and provide its recipe. Ignore everything else in the image. The recipe should be returned in the following JSON format with exact key names:
+                                {
+                                "status": true/false,
+                                "name": "string",
+                                "ingredients": ["string"],
+                                "steps": ["string"]
+                                }
+                                If you find a food item, return the recipe with status set to true, including the name, ingredients, and steps.
+                                If no food item is found, return a JSON with only the status field set to false.
+                                Ensure that the JSON keys status, name, ingredients, and steps are used exactly as shown, with no variation in the key names.
+                                '''
                             },
                             {
                                 "type": "image_url",
