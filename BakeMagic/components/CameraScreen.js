@@ -7,15 +7,15 @@ import {
   Alert,
   Linking,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import styles from './styles';
 
 const CameraScreen = () => {
   const [cameraPermission, setCameraPermission] = useState(null);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
   const device = useCameraDevice('back');
   const camera = useRef(null);
   const [capturedPhoto, setCapturedPhoto] = useState(null);
@@ -81,7 +81,7 @@ const CameraScreen = () => {
   const uploadPhoto = async () => {
     if (!capturedPhoto) return;
 
-    setLoading(true); // Start loading indicator
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('file', {
@@ -101,18 +101,20 @@ const CameraScreen = () => {
         },
       );
 
-      setLoading(false); // Stop loading indicator
+      setLoading(false);
+      // Keep showing the captured image even after confirming
+      // Only navigate to the next screen when upload is complete
       navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
-      setLoading(false); // Stop loading indicator on error
+      setLoading(false);
       console.error('Upload failed:', error);
       Alert.alert('Upload Failed', 'There was an issue uploading your photo.');
     }
   };
 
   const confirmPhoto = () => {
+    // Start the upload process but don't change the view
     uploadPhoto();
-    setShowPreview(false);
   };
 
   const retakePhoto = () => {
@@ -122,7 +124,7 @@ const CameraScreen = () => {
 
   return (
     <View style={styles.cameraContainer}>
-      {isFocused && cameraPermission && (
+      {isFocused && cameraPermission && !showPreview && (
         <Camera
           style={styles.camera}
           device={device}
@@ -131,26 +133,79 @@ const CameraScreen = () => {
           photo={true}
         />
       )}
-      {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.loadingText}>Processing... Please wait</Text>
-        </View>
-      ) : showPreview && capturedPhoto ? (
+      {showPreview && capturedPhoto ? (
         <View style={styles.previewContainer}>
-          <Image source={{ uri: capturedPhoto }} style={styles.previewImage} />
+          <Image
+            source={{ uri: capturedPhoto }}
+            style={styles.fullScreenImage}
+          />
           <View style={styles.buttonContainer}>
             <Button title="Retake" onPress={retakePhoto} />
             <Button title="Confirm" onPress={confirmPhoto} />
           </View>
         </View>
       ) : (
-        <View style={styles.buttonContainer}>
-          <Button title="Take Photo" onPress={takePhoto} />
+        !showPreview && (
+          <View style={styles.buttonContainer}>
+            <Button title="Take Photo" onPress={takePhoto} />
+          </View>
+        )
+      )}
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.loadingText}>Processing... Please wait</Text>
         </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  cameraContainer: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  camera: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  previewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fullScreenImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    paddingVertical: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark transparent overlay
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: '#fff',
+    fontFamily: 'Inter',
+  },
+});
 
 export default CameraScreen;

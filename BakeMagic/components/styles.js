@@ -1,15 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  // HomeScreen styles
   homeContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: 'center', // Center vertically
+    alignItems: 'center', // Center horizontally
+    backgroundColor: '#fff', // Ensure background color is set
   },
   icon: {
-    alignSelf: 'center',
+    alignSelf: 'center', // Ensure the icon itself is centered within its container
   },
 
   // CameraScreen styles
@@ -26,16 +25,19 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#000',
   },
   previewImage: {
-    width: 300,
-    height: 300,
-    marginBottom: 20,
+    width: '100%',
+    height: '70%',
+    resizeMode: 'contain',
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    margin: 20,
+    justifyContent: 'space-evenly',
+    width: '100%',
+    paddingVertical: 10,
+    backgroundColor: '#000',
   },
   loadingContainer: {
     flex: 1,
