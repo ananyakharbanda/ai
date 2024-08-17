@@ -25,7 +25,6 @@ const CameraScreen = () => {
 
   const checkCameraPermission = async () => {
     const status = await Camera.getCameraPermissionStatus();
-    console.log(status);
     if (status === 'granted') {
       setCameraPermission(true);
     } else if (status === 'not-determined') {
