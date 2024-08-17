@@ -7,7 +7,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.homeContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Camera')}>
-        <Icon name="camera" size={100} color="#000" style={styles.icon} />
+        <Icon name="camera" size={100} color="#FFA500" style={styles.icon} />
       </TouchableOpacity>
     </View>
   );

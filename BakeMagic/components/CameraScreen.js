@@ -2,12 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
-  Button,
   Image,
   Alert,
   Linking,
   ActivityIndicator,
   StyleSheet,
+  TouchableOpacity, // Import TouchableOpacity for custom buttons
 } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -113,7 +113,6 @@ const CameraScreen = () => {
   };
 
   const confirmPhoto = () => {
-    // Start the upload process but don't change the view
     uploadPhoto();
   };
 
@@ -140,14 +139,20 @@ const CameraScreen = () => {
             style={styles.fullScreenImage}
           />
           <View style={styles.buttonContainer}>
-            <Button title="Retake" onPress={retakePhoto} />
-            <Button title="Confirm" onPress={confirmPhoto} />
+            <TouchableOpacity style={styles.button} onPress={retakePhoto}>
+              <Text style={styles.buttonText}>Retake</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
+              <Text style={styles.buttonText}>Confirm</Text>
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
         !showPreview && (
           <View style={styles.buttonContainer}>
-            <Button title="Take Photo" onPress={takePhoto} />
+            <TouchableOpacity style={styles.button} onPress={takePhoto}>
+              <Text style={styles.buttonText}>Take Photo</Text>
+            </TouchableOpacity>
           </View>
         )
       )}
@@ -189,6 +194,19 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  button: {
+    backgroundColor: '#FFA500', // Solid orange background color
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginHorizontal: 5,
+  },
+  buttonText: {
+    color: '#000', // Black text color
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontFamily: 'Inter',
   },
   loadingContainer: {
     position: 'absolute',

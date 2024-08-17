@@ -1,20 +1,24 @@
 import { StyleSheet } from 'react-native';
 
+const darkTeal = '#008080'; // Darker teal color
+
 export default StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: darkTeal, // Apply dark teal background color
+  },
   homeContainer: {
     flex: 1,
-    justifyContent: 'center', // Center vertically
-    alignItems: 'center', // Center horizontally
-    backgroundColor: '#fff', // Ensure background color is set
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: darkTeal, // Dark teal background color for HomeScreen
   },
   icon: {
-    alignSelf: 'center', // Ensure the icon itself is centered within its container
+    alignSelf: 'center',
   },
-
-  // CameraScreen styles
   cameraContainer: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: darkTeal, // Dark teal background color for CameraScreen
   },
   camera: {
     flex: 1,
@@ -25,25 +29,31 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: darkTeal, // Dark teal background color for preview
   },
-  previewImage: {
+  fullScreenImage: {
     width: '100%',
-    height: '70%',
-    resizeMode: 'contain',
+    height: '100%',
+    resizeMode: 'cover',
   },
   buttonContainer: {
+    position: 'absolute',
+    bottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',
     paddingVertical: 10,
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   loadingContainer: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark transparent overlay
   },
   loadingText: {
     marginTop: 10,
