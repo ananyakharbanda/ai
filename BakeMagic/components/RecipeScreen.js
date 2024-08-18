@@ -4,10 +4,10 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
 
 const RecipeScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -18,6 +18,9 @@ const RecipeScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.header}>
+        <Text style={styles.screenText}>Recipe</Text>
+      </View>
       <ScrollView contentContainerStyle={styles.container}>
         {status && innerStatus ? (
           <View>
@@ -37,21 +40,17 @@ const RecipeScreen = ({ route }) => {
           </View>
         ) : status ? (
           <View>
-            <Text style={styles.errorText}>
-              Could not recognize the food item. Please try again.
-            </Text>
+            <Text style={styles.errorText}>Unrecognized. Try again.</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.goBack()}
             >
-              <Text style={styles.buttonText}>Try Again</Text>
+              <Text style={styles.buttonText}>Retry</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View>
-            <Text style={styles.errorText}>
-              Something went wrong. Please try again.
-            </Text>
+            <Text style={styles.errorText}>Error. Try again.</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.goBack()}
@@ -64,57 +63,5 @@ const RecipeScreen = ({ route }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#008080', // Dark teal background color
-  },
-  container: {
-    padding: 20,
-    backgroundColor: '#008080', // Dark teal background color
-  },
-  title: {
-    fontSize: 28, // Larger font size for the title
-    fontWeight: 'bold',
-    marginBottom: 20,
-    fontFamily: 'Inter',
-    textAlign: 'center', // Center the title
-    color: '#fff', // Optional: Make the title color white for contrast
-  },
-  subtitle: {
-    fontSize: 22, // Slightly larger font size for subtitles
-    fontWeight: 'bold',
-    marginBottom: 10,
-    fontFamily: 'Inter',
-    color: '#fff', // Optional: Make the subtitle color white for contrast
-  },
-  text: {
-    fontSize: 18, // Slightly larger font size for text
-    marginBottom: 5,
-    fontFamily: 'Inter',
-    color: '#fff', // Optional: Make the text color white for contrast
-  },
-  errorText: {
-    fontSize: 18,
-    color: '#000', // Black text color for error messages
-    marginBottom: 20,
-    textAlign: 'center',
-    fontFamily: 'Inter',
-  },
-  button: {
-    backgroundColor: '#FFA500', // Solid orange background color
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#000', // Black text color
-    fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: 'Inter',
-  },
-});
 
 export default RecipeScreen;

@@ -24,7 +24,7 @@ const App = () => {
         <Stack.Screen
           name="Recipe"
           component={RecipeScreen} // Add the new screen to the stack
-          options={{ headerShown: true, title: 'Recipe Details' }}
+          options={{ headerShown: false, title: 'Recipe Details' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

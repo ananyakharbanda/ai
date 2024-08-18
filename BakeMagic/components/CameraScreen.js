@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
-  Image,
+  Image, // Import Image from react-native
   Alert,
   Linking,
   ActivityIndicator,
+  TouchableOpacity,
+  SafeAreaView,
   StyleSheet,
-  TouchableOpacity, // Import TouchableOpacity for custom buttons
 } from 'react-native';
 import { Camera, useCameraDevice } from 'react-native-vision-camera';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -32,15 +33,6 @@ const CameraScreen = () => {
       setCameraPermission(permission === 'authorized');
     } else {
       setCameraPermission(false);
-      Alert.alert(
-        'Camera Permission',
-        'Camera access is required to take photos. Please enable it in the app settings.',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          { text: 'Open Settings', onPress: () => Linking.openSettings() },
-        ],
-        { cancelable: false },
-      );
     }
   };
 
@@ -48,14 +40,27 @@ const CameraScreen = () => {
     checkCameraPermission();
   }, []);
 
+  // Handle different states before camera is ready
   if (cameraPermission === null) {
-    return <Text>Checking camera permission...</Text>;
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <Text style={styles.messageText}>Checking camera permission...</Text>
+      </SafeAreaView>
+    );
   } else if (!cameraPermission) {
-    return <Text>Camera permission not granted</Text>;
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <Text style={styles.messageText}>Camera permission not granted</Text>
+      </SafeAreaView>
+    );
   }
 
   if (!device) {
-    return <Text>No camera device available</Text>;
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <Text style={styles.messageText}>No camera device available</Text>
+      </SafeAreaView>
+    );
   }
 
   const takePhoto = async () => {
@@ -102,8 +107,6 @@ const CameraScreen = () => {
       );
 
       setLoading(false);
-      // Keep showing the captured image even after confirming
-      // Only navigate to the next screen when upload is complete
       navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
       setLoading(false);
@@ -122,54 +125,85 @@ const CameraScreen = () => {
   };
 
   return (
-    <View style={styles.cameraContainer}>
-      {isFocused && cameraPermission && !showPreview && (
-        <Camera
-          style={styles.camera}
-          device={device}
-          isActive={true}
-          ref={camera}
-          photo={true}
-        />
-      )}
-      {showPreview && capturedPhoto ? (
-        <View style={styles.previewContainer}>
-          <Image
-            source={{ uri: capturedPhoto }}
-            style={styles.fullScreenImage}
+    <View style={styles.container}>
+      <SafeAreaView style={styles.header}>
+        <Text style={styles.screenText}></Text>
+      </SafeAreaView>
+      <View style={styles.cameraContainer}>
+        {isFocused && cameraPermission && !showPreview && (
+          <Camera
+            style={styles.camera}
+            device={device}
+            isActive={true}
+            ref={camera}
+            photo={true}
           />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={retakePhoto}>
-              <Text style={styles.buttonText}>Retake</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
-              <Text style={styles.buttonText}>Confirm</Text>
-            </TouchableOpacity>
+        )}
+        {showPreview && capturedPhoto ? (
+          <View style={styles.previewContainer}>
+            <Image
+              source={{ uri: capturedPhoto }}
+              style={styles.fullScreenImage}
+            />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={retakePhoto}>
+                <Text style={styles.buttonText}>Retake</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
+                <Text style={styles.buttonText}>Confirm</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      ) : (
-        !showPreview && (
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={takePhoto}>
-              <Text style={styles.buttonText}>Take Photo</Text>
-            </TouchableOpacity>
+        ) : (
+          !showPreview && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={takePhoto}>
+                <Text style={styles.buttonText}>Capture</Text>
+              </TouchableOpacity>
+            </View>
+          )
+        )}
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={styles.loadingText}>Processing...</Text>
           </View>
-        )
-      )}
-      {loading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.loadingText}>Processing... Please wait</Text>
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#008080', // Teal background color for message areas
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  messageText: {
+    fontSize: 18,
+    color: '#fff', // White text color for contrast
+    textAlign: 'center',
+    fontFamily: 'Inter',
+  },
+  header: {
+    backgroundColor: '#FFA500', // Orange background for the top text
+    padding: 15,
+  },
+  screenText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000', // Black text color
+    textAlign: 'center',
+    fontFamily: 'Inter',
+  },
   cameraContainer: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#000', // Keep the camera view background black
   },
   camera: {
     flex: 1,
