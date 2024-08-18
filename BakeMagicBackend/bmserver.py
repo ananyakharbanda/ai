@@ -5,19 +5,18 @@ import base64
 import requests
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
-import json
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Configuration
 UPLOAD_FOLDER = '/tmp'  # Change this to your desired upload folder
+#/home/site/wwwroot/tmp
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # OpenAI API configuration using environment variables
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')  # Replace with your environment variable name
-
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 if not OPENAI_API_KEY:
     raise ValueError("OpenAI API key must be set in environment variables.")
 
@@ -34,8 +33,7 @@ def allowed_file(filename):
 # Generate a unique filename
 def generate_unique_filename(filename):
     ext = filename.rsplit('.', 1)[1].lower()
-    unique_filename = f"{uuid.uuid4().hex}.{ext}"
-    return unique_filename
+    return f"{uuid.uuid4().hex}.{ext}"
 
 # Function to encode the image in base64
 def encode_image(image_path):
@@ -46,27 +44,21 @@ def encode_image(image_path):
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
-        # Check if the request has a file part
         if 'file' not in request.files:
-            return "No file part in the request", 400
+            return jsonify({"status": False, "message": "No file part in the request"}), 400
 
         file = request.files['file']
-
-        # If no file is selected, return an error
         if file.filename == '':
-            return "No file selected", 400
+            return jsonify({"status": False, "message": "No file selected"}), 400
 
-        # Save the file if it has an allowed extension
         if file and allowed_file(file.filename):
             original_filename = secure_filename(file.filename)
             unique_filename = generate_unique_filename(original_filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
             file.save(file_path)
 
-            # Encode the image in base64
             base64_image = encode_image(file_path)
 
-            # Prepare the request to the OpenAI API
             headers = {
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {OPENAI_API_KEY}"
@@ -104,18 +96,17 @@ def upload_file():
                 "max_tokens": 1000
             }
 
-            # Make the API request
             response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
-            # Process the response
+            # Delete the file after processing
+            os.remove(file_path)
+
             if response.status_code == 200:
                 result = response.json()
-                content = result['choices'][0]['message']['content']
-                if content.startswith("```json"):
-                    content = content.strip("```json").strip("```").strip()
+                content = result['choices'][0]['message']['content'].strip().strip('```json').strip('```')
                 response_data = {"status": True, "message": content}
                 app.logger.info(f"Returning JSON response: {json.dumps(response_data)}")
-                return jsonify({"status": True, "message": content}), 200
+                return jsonify(response_data), 200
             else:
                 error_message = response.text
                 return jsonify({"status": False, "message": f"OpenAI API error: {error_message}"}), response.status_code
@@ -123,11 +114,10 @@ def upload_file():
         return jsonify({"status": False, "message": "Invalid file type"}), 400
 
     except Exception as e:
-        # Log the error for debugging purposes
         app.logger.error(f"An error occurred: {str(e)}")
         return jsonify({"status": False, "message": f"An internal error occurred: {str(e)}"}), 500
 
 
 # Main entry point
 if __name__ == '__main__':
-    app.run(host='192.168.1.7', port=44444, debug=True)
+    app.run(host='0.0.0.0', port=44444)
