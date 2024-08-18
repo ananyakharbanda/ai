@@ -5,13 +5,14 @@ import base64
 import requests
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Configuration
-UPLOAD_FOLDER = '/tmp'  # Change this to your desired upload folder
-#/home/site/wwwroot/tmp
+UPLOAD_FOLDER = '/home/site/wwwroot/tmp'  # Change this to your desired upload folder in Azure
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -25,6 +26,9 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
+
+# Initialize Flask-Limiter
+limiter = Limiter(get_remote_address, app=app, default_limits=["200 per day", "50 per hour"])
 
 # Function to check allowed file extensions
 def allowed_file(filename):
@@ -40,8 +44,9 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-# Route to handle file uploads and OpenAI API analysis
+# Route to handle file uploads and OpenAI API analysis with rate limiting applied
 @app.route('/upload', methods=['POST'])
+@limiter.limit("10 per minute")  # Specific rate limit for this route
 def upload_file():
     try:
         if 'file' not in request.files:
