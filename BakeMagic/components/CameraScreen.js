@@ -97,7 +97,7 @@ const CameraScreen = () => {
 
     try {
       const response = await axios.post(
-        'http://192.168.1.7:44444/upload',
+        'https://cooknbake-bzcfcuhdf6c7ehde.southeastasia-01.azurewebsites.net/upload',
         formData,
         {
           headers: {
@@ -110,7 +110,7 @@ const CameraScreen = () => {
       navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
       setLoading(false);
-      console.error('Upload failed:', error);
+      console.error('Upload failed:', error.response.data);
       Alert.alert('Upload Failed', 'There was an issue uploading your photo.');
     }
   };
