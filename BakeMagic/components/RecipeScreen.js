@@ -17,11 +17,11 @@ const RecipeScreen = ({ route }) => {
   const innerStatus = parsedMessage.status;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.header}>
         <Text style={styles.screenText}>Recipe</Text>
-      </View>
-      <ScrollView contentContainerStyle={styles.container}>
+      </SafeAreaView>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {status && innerStatus ? (
           <View>
             <Text style={styles.title}>{parsedMessage.name}</Text>
@@ -60,7 +60,7 @@ const RecipeScreen = ({ route }) => {
           </View>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

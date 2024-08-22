@@ -7,7 +7,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.homeContainer}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.screenText}></Text>
+        <Text style={styles.screenText}>Home</Text>
       </SafeAreaView>
       <View style={styles.content}>
         <TouchableOpacity onPress={() => navigation.navigate('Camera')}>

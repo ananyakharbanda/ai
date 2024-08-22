@@ -1,32 +1,43 @@
 import { StyleSheet } from 'react-native';
 
-const orange = '#FFA500'; // Solid orange color
-const darkTeal = '#008080'; // Darker teal color
+const orange = '#FFA500';
+const darkTeal = '#008080';
 
 export default StyleSheet.create({
+  // Common Styles
+  header: {
+    backgroundColor: orange,
+    padding: 15,
+  },
+  screenText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'center',
+    fontFamily: 'Inter',
+  },
+
+  // HomeScreen Styles
   homeContainer: {
     flex: 1,
-    backgroundColor: darkTeal, // Dark teal background color for HomeScreen
-  },
-  cameraContainer: {
-    flex: 1,
-    backgroundColor: darkTeal, // Dark teal background color for CameraScreen
-  },
-  header: {
-    backgroundColor: orange, // Orange background for the top text
-    padding: 15,
+    backgroundColor: darkTeal,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  screenText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000', // Black text color
-    textAlign: 'center',
-    fontFamily: 'Inter',
+  icon: {
+    alignSelf: 'center',
+  },
+
+  // CameraScreen Styles
+  container: {
+    flex: 1,
+  },
+  cameraContainer: {
+    flex: 1,
+    backgroundColor: '#000',
   },
   camera: {
     flex: 1,
@@ -53,14 +64,14 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
-    backgroundColor: orange, // Solid orange background color
+    backgroundColor: orange,
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
     marginHorizontal: 5,
   },
   buttonText: {
-    color: '#000', // Black text color
+    color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
     fontFamily: 'Inter',
@@ -73,7 +84,7 @@ export default StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark transparent overlay
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   loadingText: {
     marginTop: 10,
@@ -81,38 +92,37 @@ export default StyleSheet.create({
     color: '#fff',
     fontFamily: 'Inter',
   },
-  safeArea: {
-    flex: 1,
-    backgroundColor: darkTeal, // Dark teal background color for RecipeScreen
-  },
-  container: {
+
+  // RecipeScreen Styles
+  scrollViewContent: {
+    flexGrow: 1,
     padding: 20,
-    backgroundColor: darkTeal, // Dark teal background color for RecipeScreen container
+    backgroundColor: darkTeal,
   },
   title: {
-    fontSize: 28, // Larger font size for the title
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
     fontFamily: 'Inter',
-    textAlign: 'center', // Center the title
-    color: '#fff', // White text color for contrast against orange background
+    textAlign: 'center',
+    color: '#fff',
   },
   subtitle: {
-    fontSize: 22, // Slightly larger font size for subtitles
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
     fontFamily: 'Inter',
-    color: '#fff', // White text color for contrast against orange background
+    color: '#fff',
   },
   text: {
-    fontSize: 18, // Slightly larger font size for text
+    fontSize: 18,
     marginBottom: 5,
     fontFamily: 'Inter',
-    color: '#fff', // White text color for contrast against orange background
+    color: '#fff',
   },
   errorText: {
     fontSize: 18,
-    color: '#000', // Black text color for error messages
+    color: '#000',
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: 'Inter',
