@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fff', // White text color for contrast
     textAlign: 'center',
-    fontFamily: getFontFamily('Inter_18pt', '400'), // Use '400' for Regular weight
+    fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
   },
   header: {
     backgroundColor: '#FFA500', // Orange background for the top text
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000', // Black text color
     textAlign: 'center',
-    fontFamily: getFontFamily('Inter_18pt', '700'), // Use '700' for Bold weight
+    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   cameraContainer: {
     flex: 1,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     color: '#000', // Black text color
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: getFontFamily('Inter_18pt', '700'), // Use '700' for Bold weight
+    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {
     position: 'absolute',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 18,
     color: '#fff',
-    fontFamily: getFontFamily('Inter_18pt', '400'), // Use '400' for Regular weight
+    fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
   },
 });
 

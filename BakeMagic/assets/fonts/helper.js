@@ -1,4 +1,4 @@
-export const getFontFamily = (baseFont = 'Inter_18pt', weight) => {
+export const getFontFamily = (baseFont = 'Inter18pt', weight) => {
   switch (weight) {
     case '100':
       return `${baseFont}-Thin`;

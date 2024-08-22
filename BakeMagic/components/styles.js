@@ -15,7 +15,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
-    fontFamily: getFontFamily('Inter_18pt', '700'), // Use '700' for Bold weight
+    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
 
   // HomeScreen Styles
@@ -75,7 +75,7 @@ export default StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: getFontFamily('Inter_18pt', '700'), // Use '700' for Bold weight
+    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {
     position: 'absolute',
@@ -91,7 +91,7 @@ export default StyleSheet.create({
     marginTop: 10,
     fontSize: 18,
     color: '#fff',
-    fontFamily: getFontFamily('Inter_18pt', '400'), // Use '400' for Regular weight
+    fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
   },
 
   // RecipeScreen Styles
@@ -104,7 +104,7 @@ export default StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
-    fontFamily: getFontFamily('Inter_18pt', '700'), // Use '700' for Bold weight
+    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
     textAlign: 'center',
     color: '#fff',
   },
@@ -112,13 +112,13 @@ export default StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    fontFamily: getFontFamily('Inter_18pt', '600'), // Use '600' for SemiBold weight
+    fontFamily: getFontFamily('Inter18pt', '600'), // Use '600' for SemiBold weight
     color: '#fff',
   },
   text: {
     fontSize: 18,
     marginBottom: 5,
-    fontFamily: getFontFamily('Inter_18pt', '400'), // Use '400' for Regular weight
+    fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
     color: '#fff',
   },
   errorText: {
@@ -126,6 +126,6 @@ export default StyleSheet.create({
     color: '#000',
     marginBottom: 20,
     textAlign: 'center',
-    fontFamily: getFontFamily('Inter_18pt', '400'), // Use '400' for Regular weight
+    fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
   },
 });
