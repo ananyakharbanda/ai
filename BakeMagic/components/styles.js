@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
 import { getFontFamily } from '../assets/fonts/helper';
 
-const orange = '#FFA500';
-const darkTeal = '#008080';
+// Lighter shades of orange and teal
+const lightOrange = '#FFC07F'; // A lighter shade of orange
+const lightTeal = '#20B2AA'; // A lighter shade of teal
 
 export default StyleSheet.create({
   // Common Styles
   header: {
-    backgroundColor: orange,
+    backgroundColor: lightOrange,
     padding: 15,
   },
   screenText: {
@@ -21,7 +22,7 @@ export default StyleSheet.create({
   // HomeScreen Styles
   homeContainer: {
     flex: 1,
-    backgroundColor: darkTeal,
+    backgroundColor: lightTeal,
   },
   content: {
     flex: 1,
@@ -65,7 +66,7 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
-    backgroundColor: orange,
+    backgroundColor: lightOrange,
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
@@ -98,7 +99,7 @@ export default StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: darkTeal,
+    backgroundColor: lightTeal,
   },
   title: {
     fontSize: 28,

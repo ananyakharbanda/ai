@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#008080', // Teal background color for message areas
+    backgroundColor: '#20B2AA', // Teal background color for message areas
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
-    backgroundColor: '#FFA500', // Solid orange background color
+    backgroundColor: '#FFC07F', // Solid orange background color
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
