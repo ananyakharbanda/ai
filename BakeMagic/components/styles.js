@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { getFontFamily } from '../assets/fonts/helper';
 
 // Lighter shades of orange and teal
-const lightOrange = '#FFC07F'; // A lighter shade of orange
+const lightOrange = '#FFA500'; // A lighter shade of orange
 const lightTeal = '#20B2AA'; // A lighter shade of teal
 
 export default StyleSheet.create({
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   screenText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     color: '#000',
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
@@ -75,7 +75,7 @@ export default StyleSheet.create({
   buttonText: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {
@@ -103,7 +103,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     marginBottom: 20,
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
     textAlign: 'center',
@@ -111,7 +111,7 @@ export default StyleSheet.create({
   },
   subtitle: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     marginBottom: 10,
     fontFamily: getFontFamily('Inter18pt', '600'), // Use '600' for SemiBold weight
     color: '#fff',

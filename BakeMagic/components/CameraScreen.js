@@ -66,7 +66,7 @@ const CameraScreen = () => {
 
   const takePhoto = async () => {
     if (!camera.current) {
-      console.error('Camera reference not available.', camera.current);
+      //console.error('Camera reference not available.', camera.current);
       return;
     }
 
@@ -77,10 +77,10 @@ const CameraScreen = () => {
         setCapturedPhoto(photoURI);
         setShowPreview(true);
       } else {
-        console.error('Photo captured is undefined or empty.');
+        //console.error('Photo captured is undefined or empty.');
       }
     } catch (error) {
-      console.error('Error capturing photo:', error);
+      //error('Error capturing photo:', error);
     }
   };
 
@@ -111,8 +111,11 @@ const CameraScreen = () => {
       navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
       setLoading(false);
-      console.error('Upload failed:', error.response.data);
-      Alert.alert('Upload Failed', 'There was an issue uploading your photo.');
+      //console.error('Upload failed:', error.response.data);
+      Alert.alert(
+        'Upload Failed',
+        'There was an issue uploading your picture.',
+      );
     }
   };
 
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
   },
   screenText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     color: '#000', // Black text color
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
@@ -231,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   button: {
-    backgroundColor: '#FFC07F', // Solid orange background color
+    backgroundColor: '#FFA500', // Solid orange background color
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
@@ -240,7 +243,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000', // Black text color
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {
