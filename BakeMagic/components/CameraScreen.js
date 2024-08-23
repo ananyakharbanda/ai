@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import {
   Text,
   View,
-  Image, // Import Image from react-native
+  Image,
   Alert,
-  Linking,
   ActivityIndicator,
   TouchableOpacity,
   SafeAreaView,
@@ -31,7 +30,11 @@ const CameraScreen = () => {
       setCameraPermission(true);
     } else if (status === 'not-determined') {
       const permission = await Camera.requestCameraPermission();
-      setCameraPermission(permission === 'authorized');
+      if (permission === 'authorized') {
+        setCameraPermission(true);
+      } else {
+        setCameraPermission(false);
+      }
     } else {
       setCameraPermission(false);
     }
@@ -40,6 +43,12 @@ const CameraScreen = () => {
   useEffect(() => {
     checkCameraPermission();
   }, []);
+
+  useEffect(() => {
+    if (cameraPermission === false) {
+      checkCameraPermission(); // Re-check the permission if initially denied
+    }
+  }, [cameraPermission]);
 
   // Handle different states before camera is ready
   if (cameraPermission === null) {
@@ -51,7 +60,9 @@ const CameraScreen = () => {
   } else if (!cameraPermission) {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <Text style={styles.messageText}>Camera permission not granted</Text>
+        <Text style={styles.messageText}>
+          Grant camera permission in Settings and Restart the app
+        </Text>
       </SafeAreaView>
     );
   }
@@ -66,7 +77,6 @@ const CameraScreen = () => {
 
   const takePhoto = async () => {
     if (!camera.current) {
-      //console.error('Camera reference not available.', camera.current);
       return;
     }
 
@@ -76,11 +86,9 @@ const CameraScreen = () => {
         const photoURI = `file://${photo.path}`;
         setCapturedPhoto(photoURI);
         setShowPreview(true);
-      } else {
-        //console.error('Photo captured is undefined or empty.');
       }
     } catch (error) {
-      //error('Error capturing photo:', error);
+      Alert.alert('Error', 'There was an issue capturing the photo.');
     }
   };
 
@@ -111,7 +119,6 @@ const CameraScreen = () => {
       navigation.navigate('Recipe', { apiResponse: response.data });
     } catch (error) {
       setLoading(false);
-      //console.error('Upload failed:', error.response.data);
       Alert.alert(
         'Upload Failed',
         'There was an issue uploading your picture.',

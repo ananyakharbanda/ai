@@ -24,17 +24,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) need access to your camera for getting recipe</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>$(PRODUCT_NAME) needs access to your camera for getting recipe</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter_18pt-Black.ttf</string>
