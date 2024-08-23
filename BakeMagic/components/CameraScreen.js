@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   screenText: {
     fontSize: 18,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     color: '#000', // Black text color
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#000', // Black text color
     fontSize: 16,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {

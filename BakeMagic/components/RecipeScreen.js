@@ -37,6 +37,14 @@ const RecipeScreen = ({ route }) => {
                 {index + 1}. {step}
               </Text>
             ))}
+            <TouchableOpacity
+              style={styles.newRecipeButton} // Only show this button when a recipe is found
+              onPress={() => navigation.navigate('Camera')}
+            >
+              <Text style={styles.buttonText}>
+                Want another recipe?{'\n'}Click to take new pic!
+              </Text>
+            </TouchableOpacity>
           </View>
         ) : status ? (
           <View>

@@ -31,7 +31,7 @@ const App = () => {
         <Stack.Screen
           name="Camera"
           component={CameraScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, gestureEnabled: false }}
         />
         <Stack.Screen
           name="Recipe"

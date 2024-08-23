@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   screenText: {
     fontSize: 18,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     color: '#000',
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
@@ -75,7 +75,7 @@ export default StyleSheet.create({
   buttonText: {
     color: '#000',
     fontSize: 16,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
   },
   loadingContainer: {
@@ -103,7 +103,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     marginBottom: 20,
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
     textAlign: 'center',
@@ -111,7 +111,7 @@ export default StyleSheet.create({
   },
   subtitle: {
     fontSize: 22,
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     marginBottom: 10,
     fontFamily: getFontFamily('Inter18pt', '600'), // Use '600' for SemiBold weight
     color: '#fff',
@@ -128,5 +128,12 @@ export default StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
+  },
+  newRecipeButton: {
+    backgroundColor: lightOrange,
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
