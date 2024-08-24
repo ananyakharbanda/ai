@@ -19,7 +19,7 @@ const RecipeScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.screenText}>Recipe</Text>
+        <Text style={styles.screenText}>Cook</Text>
       </SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {status && innerStatus ? (
@@ -41,9 +41,7 @@ const RecipeScreen = ({ route }) => {
               style={styles.newRecipeButton} // Only show this button when a recipe is found
               onPress={() => navigation.navigate('Camera')}
             >
-              <Text style={styles.buttonText}>
-                Want another recipe?{'\n'}Click to take new pic!
-              </Text>
+              <Text style={styles.buttonText}>More Recipes!</Text>
             </TouchableOpacity>
           </View>
         ) : status ? (

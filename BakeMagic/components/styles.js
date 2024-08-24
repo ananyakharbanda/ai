@@ -119,6 +119,7 @@ export default StyleSheet.create({
   text: {
     fontSize: 18,
     marginBottom: 5,
+    fontWeight: 'normal',
     fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
     color: '#fff',
   },

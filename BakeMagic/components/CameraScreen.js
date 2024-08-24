@@ -138,7 +138,7 @@ const CameraScreen = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.screenText}></Text>
+        <Text style={styles.screenText}>Capture</Text>
       </SafeAreaView>
       <View style={styles.cameraContainer}>
         {isFocused && cameraPermission && !showPreview && (
@@ -161,7 +161,7 @@ const CameraScreen = () => {
                 <Text style={styles.buttonText}>Retake</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
-                <Text style={styles.buttonText}>Confirm</Text>
+                <Text style={styles.buttonText}>Use Pic</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -169,14 +169,14 @@ const CameraScreen = () => {
           !showPreview && (
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={takePhoto}>
-                <Text style={styles.buttonText}>Capture</Text>
+                <Text style={styles.buttonText}>Snap</Text>
               </TouchableOpacity>
             </View>
           )
         )}
         {loading && (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="#FFA500" />
             <Text style={styles.loadingText}>Processing...</Text>
           </View>
         )}
