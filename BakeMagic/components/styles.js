@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   screenText: {
     fontSize: 18,
-    fontWeight: 'normal',
+    fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
