@@ -73,10 +73,10 @@ export default StyleSheet.create({
     marginHorizontal: 5,
   },
   buttonText: {
-    color: '#000',
-    fontSize: 16,
-    fontWeight: 'normal',
-    fontFamily: getFontFamily('Inter18pt', '700'), // Use '700' for Bold weight
+    fontSize: 18,
+    color: '#000', // Black text color
+    textAlign: 'center',
+    fontFamily: getFontFamily('Inter18pt', '500'),
   },
   loadingContainer: {
     position: 'absolute',
@@ -129,6 +129,13 @@ export default StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: getFontFamily('Inter18pt', '400'), // Use '400' for Regular weight
+  },
+  labelText: {
+    fontSize: 18,
+    color: '#000', // Black text color
+    textAlign: 'center',
+    fontFamily: getFontFamily('Inter18pt', '500'),
+    marginBottom: 40, // Increase the space below the label
   },
   newRecipeButton: {
     backgroundColor: lightOrange,

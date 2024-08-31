@@ -138,7 +138,7 @@ const CameraScreen = () => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.screenText}>Capture</Text>
+        <Text style={styles.screenText}>AI-Powered Chef</Text>
       </SafeAreaView>
       <View style={styles.cameraContainer}>
         {isFocused && cameraPermission && !showPreview && (
@@ -161,7 +161,7 @@ const CameraScreen = () => {
                 <Text style={styles.buttonText}>Retake</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
-                <Text style={styles.buttonText}>Use Pic</Text>
+                <Text style={styles.buttonText}>Use Picture</Text>
               </TouchableOpacity>
             </View>
           </View>

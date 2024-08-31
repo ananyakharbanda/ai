@@ -19,7 +19,7 @@ const RecipeScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.screenText}>Cook</Text>
+        <Text style={styles.screenText}>AI-Powered Chef</Text>
       </SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {status && innerStatus ? (
@@ -46,7 +46,7 @@ const RecipeScreen = ({ route }) => {
           </View>
         ) : status ? (
           <View>
-            <Text style={styles.errorText}>Unrecognized. Try again.</Text>
+            <Text style={styles.errorText}>Unrecognized Food. Try again.</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.goBack()}
